@@ -1,0 +1,35 @@
+name: release
+
+on:
+  workflow_run:
+    workflows: ["build"]
+    branches: [master, develop]
+    types:
+      - completed
+
+env:
+  namespace: ${{ github.event.repository.name }}-${{ github.actor }}
+
+jobs:
+  release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: okteto/login@latest
+        with:
+          token: ${{ secrets.OKTETO_TOKEN }}
+
+      - name: "Activate Namespace"
+        uses: okteto/namespace@latest
+        with:
+          namespace: ${{ inputs.namespace }}
+
+      - name: "Trigger the pipeline"
+        uses: okteto/pipeline@master
+        with:
+          name: ${{ github.event.repository.name }}
+          filename: .okteto/pipeline.yml
+          namespace: ${{ inputs.namespace }}
