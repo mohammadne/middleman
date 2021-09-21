@@ -25,11 +25,11 @@ jobs:
       - name: "Activate Namespace"
         uses: okteto/namespace@latest
         with:
-          namespace: ${{ inputs.namespace }}
+          namespace: ${{ env.namespace }}
 
       - name: "Trigger the pipeline"
         uses: okteto/pipeline@master
         with:
           name: ${{ github.event.repository.name }}
           filename: .okteto/pipeline.yml
-          namespace: ${{ inputs.namespace }}
+          namespace: ${{ env.namespace }}
