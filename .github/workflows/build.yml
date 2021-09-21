@@ -22,7 +22,8 @@ jobs:
         uses: docker/metadata-action@v3
         id: meta
         with:
-          images: ${{ inputs.registry }}/${{ github.actor }}/${{ github.event.repository.name }}
+          # images: ${{ inputs.registry }}/${{ github.actor }}/${{ github.event.repository.name }}
+          images: ${{ inputs.registry }}/${{ github.actor }}/middleman
           tags: |
             type=ref,event=branch
             type=ref,event=pr
