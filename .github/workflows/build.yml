@@ -22,8 +22,7 @@ jobs:
         uses: docker/metadata-action@v3
         id: meta
         with:
-          # images: ${{ inputs.registry }}/${{ github.actor }}/${{ github.event.repository.name }}
-          images: ${{ inputs.registry }}/${{ github.actor }}/middleman
+          images: ${{ inputs.registry }}/${{ github.actor }}/${{ github.event.repository.name }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -33,7 +32,7 @@ jobs:
       - name: "Build and push Docker image"
         uses: docker/build-push-action@v2
         with:
-          file: "./Dockerfile"
+          file: "Dockerfile"
           context: .
           platforms: linux/amd64
           push: true
