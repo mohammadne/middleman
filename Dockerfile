@@ -16,8 +16,10 @@ WORKDIR /bin/
 
 COPY --from=builder /bin/app .
 
-LABEL org.opencontainers.image.source="https://github.com/mohammadne/middleman"
+ARG COMMAND
+
+LABEL org.opencontainers.image.source="https://github.com/mohammadne/middleman/${COMMAND}"
 
 ENTRYPOINT ["/bin/app"]
 
-CMD ["server", "--env=prod"]
+CMD [${COMMAND}, "--env=prod"]

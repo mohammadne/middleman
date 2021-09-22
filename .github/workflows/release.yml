@@ -15,6 +15,9 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: release
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command: [servers, proxy]
     steps:
       - uses: actions/checkout@v2
 
@@ -31,5 +34,5 @@ jobs:
         uses: okteto/pipeline@master
         with:
           name: ${{ github.event.repository.name }}
-          filename: .okteto/pipeline.yml
+          filename: .okteto/pipeline-${{ matrix.command }}.yml
           namespace: ${{ env.namespace }}

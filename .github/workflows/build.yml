@@ -9,6 +9,9 @@ jobs:
   build:
     name: build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        command: [servers, proxy]
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
@@ -22,7 +25,7 @@ jobs:
       - uses: docker/metadata-action@v3
         id: meta
         with:
-          images: ${{ env.registry }}/${{ github.actor }}/middleman
+          images: ${{ env.registry }}/${{ github.actor }}/middleman/${{ matrix.command }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -36,5 +39,6 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
+          build-args: ${{ matrix.command }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
