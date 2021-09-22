@@ -24,21 +24,12 @@ func Command() *cobra.Command {
 
 func main(cmd *cobra.Command, _ []string) {
 	env := cmd.Flag("env").Value.String()
-	config := configs.Server(env)
+	configs := configs.Proxy(env)
 
-	lg := logger.NewZap(config.Logger)
+	lg := logger.NewZap(configs.Logger)
 
-	stopChannel := make(chan interface{})
+	storage := storage.NewMemoryStorage(lg)
 
-	for _, serverCfg := range config.Servers {
-		storage, err := storage.NewFileStorage("", lg)
-		if err != nil {
-			lg.Fatal("error creating storage", logger.Error(err))
-		}
-
-		server := server.New(&serverCfg, storage, lg)
-		go server.Serve()
-	}
-
-	<-stopChannel
+	server := server.New(configs.Server, storage, lg)
+	server.Serve()
 }

@@ -2,13 +2,13 @@ package configs
 
 import (
 	"github.com/kelseyhightower/envconfig"
-	"github.com/mohammadne/middleman/internal/network"
 	"github.com/mohammadne/middleman/pkg/logger"
 )
 
 type server struct {
-	Logger  *logger.Config
-	Servers []network.ServerConfig
+	Host   string
+	Ports  []string
+	Logger *logger.Config
 }
 
 func Server(env string) *server {
@@ -26,15 +26,17 @@ func Server(env string) *server {
 
 func (config *server) loadProd() {
 	config.Logger = &logger.Config{}
-	config.Servers = []network.ServerConfig{}
 
 	// process
 	envconfig.MustProcess("server", config)
 	envconfig.MustProcess("server_logger", config.Logger)
-	envconfig.MustProcess("server_server", config.Servers)
 }
 
 func (config *server) loadDev() {
+	config.Host = "localhost"
+
+	config.Ports = []string{"8080", "8081", "8082", "8083"}
+
 	config.Logger = &logger.Config{
 		Development:      true,
 		EnableCaller:     true,
@@ -42,9 +44,4 @@ func (config *server) loadDev() {
 		Encoding:         "console",
 		Level:            "warn",
 	}
-
-	config.Servers = []network.ServerConfig{
-		{Host: "localhost", Port: "4040"},
-	}
-
 }
