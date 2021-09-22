@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/mohammadne/middleman/cmd-new/client"
-	"github.com/mohammadne/middleman/cmd-new/proxy"
-	"github.com/mohammadne/middleman/cmd-new/server"
+	"github.com/mohammadne/middleman/cmd/client"
+	"github.com/mohammadne/middleman/cmd/proxy"
+	"github.com/mohammadne/middleman/cmd/server"
 	"github.com/spf13/cobra"
 )
 

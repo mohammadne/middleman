@@ -1,6 +1,8 @@
 package server
 
 import (
+	"github.com/mohammadne/middleman/internal/configs"
+	"github.com/mohammadne/middleman/internal/network/server"
 	"github.com/mohammadne/middleman/internal/storage"
 	"github.com/spf13/cobra"
 )
@@ -19,6 +21,11 @@ func Command() *cobra.Command {
 	return cmd
 }
 
-func main(cmd *cobra.Command, args []string) {
+func main(cmd *cobra.Command, _ []string) {
+	env := cmd.Flag("env").Value.String()
+	config := configs.Server(env)
+
 	storage := storage.New("")
+	server := server.New(config.Servers, storage)
+	server.Serve(nil)
 }
