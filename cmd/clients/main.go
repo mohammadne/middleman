@@ -3,8 +3,8 @@ package clients
 import "github.com/spf13/cobra"
 
 const (
-	use   = "client"
-	short = "run client"
+	use   = "clients"
+	short = "run clients"
 )
 
 func Command() *cobra.Command {

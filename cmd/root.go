@@ -10,9 +10,9 @@ import (
 const (
 	errExecuteCMD = "failed to execute root command"
 
-	use   = "library"
-	short = "short library"
-	long  = "long library"
+	use   = "middleman"
+	short = "short middleman"
+	long  = "long middleman"
 )
 
 func main() {

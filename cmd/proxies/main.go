@@ -1,10 +1,16 @@
 package proxies
 
-import "github.com/spf13/cobra"
+import (
+	"github.com/mohammadne/middleman/internal/configs"
+	"github.com/mohammadne/middleman/internal/network/server"
+	"github.com/mohammadne/middleman/internal/storage"
+	"github.com/mohammadne/middleman/pkg/logger"
+	"github.com/spf13/cobra"
+)
 
 const (
-	use   = "proxy"
-	short = "run proxy"
+	use   = "proxies"
+	short = "run proxies"
 )
 
 func Command() *cobra.Command {
@@ -16,4 +22,23 @@ func Command() *cobra.Command {
 	return cmd
 }
 
-func main(cmd *cobra.Command, args []string) {}
+func main(cmd *cobra.Command, _ []string) {
+	env := cmd.Flag("env").Value.String()
+	config := configs.Server(env)
+
+	lg := logger.NewZap(config.Logger)
+
+	stopChannel := make(chan interface{})
+
+	for _, serverCfg := range config.Servers {
+		storage, err := storage.NewFileStorage("", lg)
+		if err != nil {
+			lg.Fatal("error creating storage", logger.Error(err))
+		}
+
+		server := server.New(&serverCfg, storage, lg)
+		go server.Serve()
+	}
+
+	<-stopChannel
+}
