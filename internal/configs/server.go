@@ -36,7 +36,7 @@ func (config *server) loadProd() {
 func (config *server) loadDev() {
 	config.StorageDirectory = "./storage"
 
-	config.ServerHost = "localhost"
+	config.ServerHost = "127.0.0.1"
 
 	config.ServerPorts = []string{"8080", "8081", "8082", "8083"}
 

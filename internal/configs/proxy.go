@@ -45,10 +45,10 @@ func (config *proxy) loadDev() {
 	}
 
 	config.Proxy = &network.ServerConfig{
-		Host: "localhost", Port: "8090",
+		Host: "127.0.0.1", Port: "8090",
 	}
 
-	config.ServerHost = "localhost"
+	config.ServerHost = "127.0.0.1"
 
 	config.ServerPorts = []string{"8080", "8081", "8082", "8083"}
 }

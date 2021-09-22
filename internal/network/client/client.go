@@ -28,9 +28,11 @@ func (client *client) Run() {
 	valueLength := uint8(client.config.ValueLength)
 	keyLength := uint8(client.config.KeyLength)
 
+	client.logger.Info("start clients")
+
 	for index := 0; index < client.config.RequestsNumber; index++ {
 		networkPkg.Post(
-			client.proxyConfig.Address(),
+			client.proxyConfig.Address()+"/objects",
 			&models.Body{
 				Value: random.String(valueLength),
 				Key:   random.String(keyLength),
@@ -40,4 +42,11 @@ func (client *client) Run() {
 
 		time.Sleep(interval)
 	}
+
+	client.logger.Info("finish clients")
 }
+
+//? CURL POST
+// curl --header "Content-Type: application/json" \
+// --request POST --data '{"key":"key","value":"value"}' \
+// http://localhost:8090/objects

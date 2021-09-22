@@ -39,10 +39,12 @@ func (config *client) loadDev() {
 	config.Client = &network.ClientConfig{
 		RequestsNumber:   100,
 		RequestsInterval: 200,
+		ValueLength:      10,
+		KeyLength:        5,
 	}
 
 	config.Proxy = &network.ServerConfig{
-		Host: "localhost",
+		Host: "127.0.0.1",
 		Port: "8090",
 	}
 

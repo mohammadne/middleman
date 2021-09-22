@@ -2,6 +2,7 @@ package storage
 
 import (
 	"fmt"
+	"path/filepath"
 	"strings"
 
 	"github.com/mohammadne/middleman/internal/models"
@@ -15,7 +16,7 @@ type fileStorage struct {
 }
 
 func NewFileStorage(directory string, logger logger.Logger) (Storage, error) {
-	storage := &fileStorage{logger: logger}
+	storage := &fileStorage{logger: logger, directory: directory}
 
 	err := utils.CreateDirIfMissed(directory)
 	if err != nil {
@@ -26,7 +27,7 @@ func NewFileStorage(directory string, logger logger.Logger) (Storage, error) {
 }
 
 func (s *fileStorage) Save(hashId string, body *models.Body) error {
-	path := s.directory + "/" + hashId
+	path := filepath.Join(s.directory, hashId) + ".txt"
 
 	if utils.IsFileExists(path) {
 		return fmt.Errorf("file: %s is already exists", path)

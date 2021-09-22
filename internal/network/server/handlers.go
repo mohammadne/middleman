@@ -2,6 +2,7 @@ package server
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/mohammadne/middleman/internal/models"
@@ -16,7 +17,7 @@ func (handler *restApi) post(c echo.Context) error {
 	}
 
 	hashId := utils.NewMd5(body.Key)
-	err := handler.storage.Save(string(hashId[:]), body)
+	err := handler.storage.Save(strconv.FormatUint(hashId, 10), body)
 	if err != nil {
 		handler.logger.Error("error saving file", logger.Error(err))
 		return c.String(http.StatusBadRequest, "error saving file")

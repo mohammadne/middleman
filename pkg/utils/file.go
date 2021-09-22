@@ -7,7 +7,7 @@ import (
 
 func CreateDirIfMissed(dirName string) error {
 	if _, err := os.Stat(dirName); os.IsNotExist(err) {
-		return os.Mkdir(dirName, os.ModePerm)
+		return os.MkdirAll(dirName, os.ModePerm)
 	}
 
 	return nil
@@ -15,6 +15,7 @@ func CreateDirIfMissed(dirName string) error {
 
 func IsFileExists(filename string) bool {
 	info, err := os.Stat(filename)
+
 	if os.IsNotExist(err) {
 		return false
 	}

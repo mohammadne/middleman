@@ -1,7 +1,7 @@
 package servers
 
 import (
-	"fmt"
+	"path/filepath"
 
 	"github.com/mohammadne/middleman/internal/configs"
 	"github.com/mohammadne/middleman/internal/network"
@@ -35,7 +35,7 @@ func main(cmd *cobra.Command, _ []string) {
 
 	for _, port := range configs.ServerPorts {
 		config := network.ServerConfig{Host: configs.ServerHost, Port: port}
-		storagePath := fmt.Sprintf("%s/%s", configs.StorageDirectory, port)
+		storagePath := filepath.Join(configs.StorageDirectory, port)
 		storage, err := storage.NewFileStorage(storagePath, lg)
 		if err != nil {
 			lg.Fatal("error creating storage", logger.Error(err))
