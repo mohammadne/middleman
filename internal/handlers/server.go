@@ -8,9 +8,9 @@ import (
 	"strings"
 
 	"github.com/labstack/echo"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/file"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/model"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/utils"
+	"github.com/mohammadne/middleman/pkg/file"
+	"github.com/mohammadne/middleman/pkg/model"
+	"github.com/mohammadne/middleman/pkg/utils"
 )
 
 type ServerHandler struct {

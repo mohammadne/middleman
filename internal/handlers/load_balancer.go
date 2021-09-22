@@ -6,9 +6,9 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/model"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/request"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/utils"
+	"github.com/mohammadne/middleman/pkg/model"
+	"github.com/mohammadne/middleman/pkg/request"
+	"github.com/mohammadne/middleman/pkg/utils"
 )
 
 type LoadBalancerHandler struct {

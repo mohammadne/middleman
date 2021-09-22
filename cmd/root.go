@@ -8,10 +8,10 @@ import (
 	"strings"
 
 	"github.com/joho/godotenv"
-	"github.com/mohammadne/go_samples/load_balancer/cmd/client"
-	loadbalancer "github.com/mohammadne/go_samples/load_balancer/cmd/load_balancer"
-	"github.com/mohammadne/go_samples/load_balancer/cmd/server"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/file"
+	"github.com/mohammadne/middleman/cmd/client"
+	loadbalancer "github.com/mohammadne/middleman/cmd/load_balancer"
+	"github.com/mohammadne/middleman/cmd/server"
+	"github.com/mohammadne/middleman/pkg/file"
 )
 
 const rootDir = "./static"

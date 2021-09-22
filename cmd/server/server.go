@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/labstack/echo"
-	"github.com/mohammadne/go_samples/load_balancer/internal/handlers"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/file"
+	"github.com/mohammadne/middleman/internal/handlers"
+	"github.com/mohammadne/middleman/pkg/file"
 )
 
 // subDirectory := fmt.Sprintf("%s/%d", directory, port)

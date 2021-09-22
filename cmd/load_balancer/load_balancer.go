@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/labstack/echo"
-	"github.com/mohammadne/go_samples/load_balancer/internal/handlers"
+	"github.com/mohammadne/middleman/internal/handlers"
 )
 
 func Setup(path string, servers []string) {

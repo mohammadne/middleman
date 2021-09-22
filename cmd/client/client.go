@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/labstack/gommon/random"
-	"github.com/mohammadne/go_samples/load_balancer/internal/handlers"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/model"
+	"github.com/mohammadne/middleman/internal/handlers"
+	"github.com/mohammadne/middleman/pkg/model"
 )
 
 const (

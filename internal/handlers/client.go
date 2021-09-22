@@ -3,8 +3,8 @@ package handlers
 import (
 	"crypto/md5"
 
-	"github.com/mohammadne/go_samples/load_balancer/pkg/model"
-	"github.com/mohammadne/go_samples/load_balancer/pkg/request"
+	"github.com/mohammadne/middleman/pkg/model"
+	"github.com/mohammadne/middleman/pkg/request"
 )
 
 type ClientHandler struct {
