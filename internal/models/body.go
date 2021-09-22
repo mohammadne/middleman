@@ -1,4 +1,4 @@
-package model
+package models
 
 type Body struct {
 	Key   string `json:"key"`

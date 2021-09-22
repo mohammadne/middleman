@@ -1,4 +1,4 @@
-package convert
+package utils
 
 import (
 	"math/rand"

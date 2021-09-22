@@ -1,6 +1,9 @@
 package server
 
-import "github.com/spf13/cobra"
+import (
+	"github.com/mohammadne/middleman/internal/storage"
+	"github.com/spf13/cobra"
+)
 
 const (
 	use   = "server"
@@ -16,4 +19,6 @@ func Command() *cobra.Command {
 	return cmd
 }
 
-func main(cmd *cobra.Command, args []string) {}
+func main(cmd *cobra.Command, args []string) {
+	storage := storage.New("")
+}

@@ -4,19 +4,21 @@ import (
 	"fmt"
 
 	"github.com/labstack/echo"
-	"github.com/mohammadne/middleman/internal-new/network"
+	"github.com/mohammadne/middleman/internal/network"
+	"github.com/mohammadne/middleman/internal/storage"
 	// "github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type restApi struct {
-	config *network.ServerConfig
+	config  *network.ServerConfig
+	storage storage.Storage
 
 	// internal dependencies
 	echo *echo.Echo
 }
 
-func NewServer(cfg *network.ServerConfig) *restApi {
-	rest := &restApi{config: cfg}
+func New(cfg *network.ServerConfig, storage storage.Storage) *restApi {
+	rest := &restApi{config: cfg, storage: storage}
 
 	rest.echo = echo.New()
 	rest.echo.HideBanner = true
