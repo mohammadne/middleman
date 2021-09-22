@@ -7,8 +7,10 @@ import (
 )
 
 type proxy struct {
-	Logger *logger.Config
-	Server *network.ServerConfig
+	Logger      *logger.Config
+	Proxy       *network.ServerConfig
+	ServerHost  string   `split_words:"true"`
+	ServerPorts []string `split_words:"true"`
 }
 
 func Proxy(env string) *proxy {
@@ -26,12 +28,11 @@ func Proxy(env string) *proxy {
 
 func (config *proxy) loadProd() {
 	config.Logger = &logger.Config{}
-	config.Server = &network.ServerConfig{}
+	config.Proxy = &network.ServerConfig{}
 
 	// process
-	envconfig.MustProcess("proxy", config)
 	envconfig.MustProcess("proxy_logger", config.Logger)
-	envconfig.MustProcess("proxy_server", config.Server)
+	envconfig.MustProcess("proxy_proxy", config.Proxy)
 }
 
 func (config *proxy) loadDev() {
@@ -43,7 +44,11 @@ func (config *proxy) loadDev() {
 		Level:            "warn",
 	}
 
-	config.Server = &network.ServerConfig{
+	config.Proxy = &network.ServerConfig{
 		Host: "localhost", Port: "8090",
 	}
+
+	config.ServerHost = "localhost"
+
+	config.ServerPorts = []string{"8080", "8081", "8082", "8083"}
 }

@@ -30,6 +30,6 @@ func main(cmd *cobra.Command, args []string) {
 
 	lg := logger.NewZap(configs.Logger)
 
-	client := client.New(configs.Client, nil, lg)
+	client := client.New(configs.Client, configs.Proxy, lg)
 	client.Run()
 }

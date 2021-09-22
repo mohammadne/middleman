@@ -2,7 +2,8 @@ package proxy
 
 import (
 	"github.com/mohammadne/middleman/internal/configs"
-	"github.com/mohammadne/middleman/internal/network/server"
+	"github.com/mohammadne/middleman/internal/network"
+	"github.com/mohammadne/middleman/internal/network/proxy"
 	"github.com/mohammadne/middleman/internal/storage"
 	"github.com/mohammadne/middleman/pkg/logger"
 	"github.com/spf13/cobra"
@@ -30,6 +31,12 @@ func main(cmd *cobra.Command, _ []string) {
 
 	storage := storage.NewMemoryStorage(lg)
 
-	server := server.New(configs.Server, storage, lg)
+	serverConfigs := make([]network.ServerConfig, 0, len(configs.ServerPorts))
+	for _, port := range configs.ServerPorts {
+		config := network.ServerConfig{Host: configs.ServerHost, Port: port}
+		serverConfigs = append(serverConfigs, config)
+	}
+
+	server := proxy.New(configs.Proxy, serverConfigs, storage, lg)
 	server.Serve()
 }

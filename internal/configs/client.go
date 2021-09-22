@@ -8,6 +8,7 @@ import (
 
 type client struct {
 	Client *network.ClientConfig
+	Proxy  *network.ServerConfig
 	Logger *logger.Config
 }
 
@@ -25,11 +26,12 @@ func Client(env string) *client {
 }
 
 func (config *client) loadProd() {
+	config.Client = &network.ClientConfig{}
+	config.Proxy = &network.ServerConfig{}
 	config.Logger = &logger.Config{}
 
-	// process
-	envconfig.MustProcess("client", config)
-	envconfig.MustProcess("client_client", config.Logger)
+	envconfig.MustProcess("client_client", config.Client)
+	envconfig.MustProcess("client_proxy", config.Proxy)
 	envconfig.MustProcess("client_logger", config.Logger)
 }
 
@@ -37,6 +39,11 @@ func (config *client) loadDev() {
 	config.Client = &network.ClientConfig{
 		RequestsNumber:   100,
 		RequestsInterval: 200,
+	}
+
+	config.Proxy = &network.ServerConfig{
+		Host: "localhost",
+		Port: "8090",
 	}
 
 	config.Logger = &logger.Config{

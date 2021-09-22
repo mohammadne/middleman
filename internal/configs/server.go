@@ -6,9 +6,9 @@ import (
 )
 
 type server struct {
-	StorageDirectory string `split_words:"true"`
-	Host             string
-	Ports            []string
+	StorageDirectory string   `split_words:"true"`
+	ServerHost       string   `split_words:"true"`
+	ServerPorts      []string `split_words:"true"`
 	Logger           *logger.Config
 }
 
@@ -36,9 +36,9 @@ func (config *server) loadProd() {
 func (config *server) loadDev() {
 	config.StorageDirectory = "./storage"
 
-	config.Host = "localhost"
+	config.ServerHost = "localhost"
 
-	config.Ports = []string{"8080", "8081", "8082", "8083"}
+	config.ServerPorts = []string{"8080", "8081", "8082", "8083"}
 
 	config.Logger = &logger.Config{
 		Development:      true,

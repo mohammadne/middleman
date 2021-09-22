@@ -9,7 +9,7 @@ import (
 )
 
 type restApi struct {
-	config        *network.ServerConfig
+	proxyConfig   *network.ServerConfig
 	serverConfigs []network.ServerConfig
 	storage       storage.Storage
 	logger        logger.Logger
@@ -18,8 +18,8 @@ type restApi struct {
 	echo *echo.Echo
 }
 
-func New(cfg *network.ServerConfig, s storage.Storage, lg logger.Logger) *restApi {
-	rest := &restApi{config: cfg, storage: s, logger: lg}
+func New(cfg *network.ServerConfig, sc []network.ServerConfig, s storage.Storage, lg logger.Logger) *restApi {
+	rest := &restApi{proxyConfig: cfg, serverConfigs: sc, storage: s, logger: lg}
 
 	rest.echo = echo.New()
 	rest.echo.HideBanner = true
@@ -37,7 +37,7 @@ func (rest *restApi) setupRoutes() {
 }
 
 func (rest *restApi) Serve() {
-	address := rest.config.Address()
+	address := rest.proxyConfig.Address()
 	rest.logger.Info("starting server", logger.String("address", address))
 	if err := rest.echo.Start(address); err != nil {
 		rest.logger.Fatal("starting server failed", logger.Error(err))

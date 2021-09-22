@@ -33,8 +33,8 @@ func main(cmd *cobra.Command, _ []string) {
 
 	stopChannel := make(chan interface{})
 
-	for _, port := range configs.Ports {
-		config := network.ServerConfig{Host: configs.Host, Port: port}
+	for _, port := range configs.ServerPorts {
+		config := network.ServerConfig{Host: configs.ServerHost, Port: port}
 		storagePath := fmt.Sprintf("%s/%s", configs.StorageDirectory, port)
 		storage, err := storage.NewFileStorage(storagePath, lg)
 		if err != nil {
