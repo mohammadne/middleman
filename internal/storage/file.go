@@ -25,7 +25,7 @@ func NewFileStorage(directory string, logger logger.Logger) (Storage, error) {
 	return storage, nil
 }
 
-func (s *fileStorage) Save(filename string, body models.Body) error {
+func (s *fileStorage) Save(filename string, body *models.Body) error {
 	path := s.directory + "/" + filename
 
 	if utils.IsFileExists(path) {

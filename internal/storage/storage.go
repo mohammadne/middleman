@@ -5,6 +5,6 @@ import (
 )
 
 type Storage interface {
-	Save(filename string, body models.Body) error
+	Save(filename string, body *models.Body) error
 	Get(hash string) (*models.Body, error)
 }
