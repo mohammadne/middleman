@@ -1,4 +1,4 @@
-package server
+package servers
 
 import (
 	"github.com/mohammadne/middleman/internal/configs"
@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	use   = "server"
-	short = "run server"
+	use   = "servers"
+	short = "run servers"
 )
 
 func Command() *cobra.Command {
@@ -36,7 +36,7 @@ func main(cmd *cobra.Command, _ []string) {
 			lg.Fatal("error creating storage", logger.Error(err))
 		}
 
-		server := server.New(&serverCfg, storage)
+		server := server.New(&serverCfg, storage, lg)
 		go server.Serve()
 	}
 

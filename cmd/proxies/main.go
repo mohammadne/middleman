@@ -1,4 +1,4 @@
-package proxy
+package proxies
 
 import "github.com/spf13/cobra"
 
