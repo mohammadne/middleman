@@ -25,7 +25,9 @@ func main(cmd *cobra.Command, _ []string) {
 	env := cmd.Flag("env").Value.String()
 	config := configs.Server(env)
 
-	storage := storage.New("")
-	server := server.New(config.Servers, storage)
-	server.Serve(nil)
+	for _, serverCfg := range config.Servers {
+		storage := storage.New("")
+		server := server.New(serverCfg, storage)
+		go server.Serve()
+	}
 }

@@ -35,7 +35,7 @@ func (rest *restApi) setupRoutes() {
 	booksGroup.GET("/:id", rest.get)
 }
 
-func (rest *restApi) Serve(<-chan struct{}) {
+func (rest *restApi) Serve() {
 	address := fmt.Sprintf("%s:%s", rest.config.Host, rest.config.Port)
 	// rest.logger.Info("starting server", logger.String("address", address))
 	if err := rest.echo.Start(address); err != nil {
