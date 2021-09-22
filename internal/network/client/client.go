@@ -1,37 +1,43 @@
 package client
 
 import (
-	"fmt"
+	"math/rand"
+	"time"
 
+	"github.com/labstack/gommon/random"
 	"github.com/mohammadne/middleman/internal/models"
 	"github.com/mohammadne/middleman/internal/network"
 	"github.com/mohammadne/middleman/pkg/logger"
 	networkPkg "github.com/mohammadne/middleman/pkg/network"
-	"github.com/mohammadne/middleman/pkg/utils"
 )
 
 type client struct {
-	logger       logger.Logger
-	proxyAddress string
+	config      *network.ClientConfig
+	proxyConfig *network.ServerConfig
+	logger      logger.Logger
 }
 
-func New(lg logger.Logger, pc *network.ServerConfig) *client {
-	return &client{logger: lg, proxyAddress: pc.Address()}
+func New(cfg *network.ClientConfig, pc *network.ServerConfig, lg logger.Logger) *client {
+	return &client{config: cfg, proxyConfig: pc, logger: lg}
 }
 
-func (client *client) Get(key string) (*models.Body, error) {
-	hashId := utils.NewMd5(key)
-	body := new(models.Body)
+func (client *client) Run() {
+	rand.Seed(time.Now().UnixNano())
 
-	url := fmt.Sprintf("%s/%s", client.proxyAddress, string(hashId[:]))
-	err := networkPkg.Get(url, body)
-	if err != nil {
-		return nil, err
+	interval := time.Millisecond * time.Duration(client.config.RequestsInterval)
+	valueLength := uint8(client.config.ValueLength)
+	keyLength := uint8(client.config.KeyLength)
+
+	for index := 0; index < client.config.RequestsNumber; index++ {
+		networkPkg.Post(
+			client.proxyConfig.Address(),
+			&models.Body{
+				Value: random.String(valueLength),
+				Key:   random.String(keyLength),
+				Cache: index%2 == 0,
+			},
+		)
+
+		time.Sleep(interval)
 	}
-
-	return body, nil
-}
-
-func (client *client) Post(body interface{}) error {
-	return networkPkg.Post(client.proxyAddress, body)
 }
