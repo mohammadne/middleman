@@ -50,5 +50,5 @@ func (config *proxy) loadDev() {
 
 	config.ServerHost = "127.0.0.1"
 
-	config.ServerPorts = []string{"8080", "8081", "8082", "8083"}
+	config.ServerPorts = []string{"8080", "8081", "8082", "8083", "8084"}
 }

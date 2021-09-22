@@ -1,6 +1,7 @@
 package proxy
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -63,5 +64,8 @@ func getTargetServer(hashId uint64, serverConfigs []network.ServerConfig) *netwo
 	}
 
 	reminder := hashIdInt % len(serverConfigs)
+
+	fmt.Println(reminder)
+
 	return &serverConfigs[reminder]
 }
