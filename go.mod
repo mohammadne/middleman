@@ -4,7 +4,6 @@ go 1.17
 
 require (
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo/v4 v4.6.0
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/spf13/cobra v1.2.1
