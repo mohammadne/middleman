@@ -1,4 +1,4 @@
-package proxies
+package proxy
 
 import (
 	"github.com/mohammadne/middleman/internal/configs"
@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	use   = "proxies"
-	short = "run proxies"
+	use   = "proxy"
+	short = "run proxy server"
 )
 
 func Command() *cobra.Command {
