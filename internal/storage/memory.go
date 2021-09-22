@@ -11,7 +11,7 @@ type memoryStorage struct {
 }
 
 func NewMemoryStorage(logger logger.Logger) Storage {
-	return &fileStorage{logger: logger}
+	return &memoryStorage{logger: logger}
 }
 
 func (storage *memoryStorage) Save(hashId string, body *models.Body) error {

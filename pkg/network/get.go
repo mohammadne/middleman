@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func Get(url string, body interface{}) error {
+func Get(url string) error {
 	resp, err := http.Get(url)
 	if err != nil {
 		return err

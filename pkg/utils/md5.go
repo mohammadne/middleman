@@ -2,17 +2,24 @@ package utils
 
 import (
 	"crypto/md5"
-	"strconv"
 	"unsafe"
 )
 
-func NewMD5(key string) string {
-	md5Key := md5.Sum([]byte(key))
-	md5Int := byteArrayToInt(md5Key)
-	return strconv.Itoa(md5Int)
+func NewMd5(key string) [16]byte {
+	return md5.Sum([]byte(key))
 }
 
-func byteArrayToInt(arr [16]byte) int {
+// func NewMD5String(key string) string {
+// 	md5 := NewMD5(key)
+// 	return string(md5[:])
+// }
+
+// func NewMD5Int(key string) int {
+// 	md5 := NewMD5(key)
+// 	return byteArrayToInt(md5)
+// }
+
+func Md5HashToInt(arr [16]byte) int {
 	val := int64(0)
 	size := len(arr)
 	for i := 0; i < size; i++ {

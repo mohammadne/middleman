@@ -15,8 +15,8 @@ func (handler *restApi) post(c echo.Context) error {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
 
-	filename := utils.NewMD5(body.Key)
-	err := handler.storage.Save(filename, body)
+	hashId := utils.NewMd5(body.Key)
+	err := handler.storage.Save(string(hashId[:]), body)
 	if err != nil {
 		handler.logger.Error("error saving file", logger.Error(err))
 		return c.String(http.StatusBadRequest, "error saving file")

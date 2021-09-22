@@ -1,8 +1,6 @@
 package proxy
 
 import (
-	"fmt"
-
 	"github.com/labstack/echo"
 	"github.com/mohammadne/middleman/internal/network"
 	"github.com/mohammadne/middleman/internal/storage"
@@ -11,9 +9,10 @@ import (
 )
 
 type restApi struct {
-	config  *network.ServerConfig
-	storage storage.Storage
-	logger  logger.Logger
+	config        *network.ServerConfig
+	serverConfigs []network.ServerConfig
+	storage       storage.Storage
+	logger        logger.Logger
 
 	// internal dependencies
 	echo *echo.Echo
@@ -38,7 +37,7 @@ func (rest *restApi) setupRoutes() {
 }
 
 func (rest *restApi) Serve() {
-	address := fmt.Sprintf("%s:%s", rest.config.Host, rest.config.Port)
+	address := rest.config.Address()
 	rest.logger.Info("starting server", logger.String("address", address))
 	if err := rest.echo.Start(address); err != nil {
 		rest.logger.Fatal("starting server failed", logger.Error(err))
