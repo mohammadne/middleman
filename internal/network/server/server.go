@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/mohammadne/middleman/internal/network"
 	"github.com/mohammadne/middleman/internal/storage"
 	"github.com/mohammadne/middleman/pkg/logger"

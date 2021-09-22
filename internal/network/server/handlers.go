@@ -3,7 +3,7 @@ package server
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/mohammadne/middleman/internal/models"
 	"github.com/mohammadne/middleman/pkg/logger"
 	"github.com/mohammadne/middleman/pkg/utils"

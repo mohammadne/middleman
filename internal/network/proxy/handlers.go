@@ -3,7 +3,7 @@ package proxy
 import (
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/mohammadne/middleman/internal/models"
 	"github.com/mohammadne/middleman/pkg/network"
 	"github.com/mohammadne/middleman/pkg/utils"
