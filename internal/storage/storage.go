@@ -1,18 +1,10 @@
 package storage
 
-import "github.com/mohammadne/middleman/internal/models"
+import (
+	"github.com/mohammadne/middleman/internal/models"
+)
 
 type Storage interface {
-	Save(body models.Body)
-	Get(hash string)
+	Save(filename string, body models.Body) error
+	Get(hash string) (*models.Body, error)
 }
-
-type storage struct{}
-
-func New(directory string) Storage {
-	return &storage{}
-}
-
-func (s *storage) Save(body models.Body) {}
-
-func (s *storage) Get(hash string) {}

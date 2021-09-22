@@ -4,6 +4,7 @@ import (
 	"github.com/mohammadne/middleman/internal/configs"
 	"github.com/mohammadne/middleman/internal/network/server"
 	"github.com/mohammadne/middleman/internal/storage"
+	"github.com/mohammadne/middleman/pkg/logger"
 	"github.com/spf13/cobra"
 )
 
@@ -25,9 +26,19 @@ func main(cmd *cobra.Command, _ []string) {
 	env := cmd.Flag("env").Value.String()
 	config := configs.Server(env)
 
+	lg := logger.NewZap(config.Logger)
+
+	stopChannel := make(chan interface{})
+
 	for _, serverCfg := range config.Servers {
-		storage := storage.New("")
-		server := server.New(serverCfg, storage)
+		storage, err := storage.NewFileStorage("", lg)
+		if err != nil {
+			lg.Fatal("error creating storage", logger.Error(err))
+		}
+
+		server := server.New(&serverCfg, storage)
 		go server.Serve()
 	}
+
+	<-stopChannel
 }
